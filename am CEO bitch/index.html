@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Watson Khunga | Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="background"></div>
+
+  <header>
+    <h1>Watson Khunga</h1>
+    <p>Welcome to my colorful portfolio 🌈</p>
+  </header>
+
+  <main>
+    <section class="grid">
+      <div class="card" data-content="home">
+        <h2>Home</h2>
+      </div>
+      <div class="card" data-content="about">
+        <h2>About</h2>
+      </div>
+      <div class="card" data-content="skills">
+        <h2>Skills</h2>
+      </div>
+      <div class="card" data-content="socials">
+        <h2>Socials</h2>
+      </div>
+      <div class="card" data-content="cv">
+        <h2>CV</h2>
+      </div>
+      <div class="card" data-content="contact">
+        <h2>Contact</h2>
+      </div>
+    </section>
+
+    <!-- Popup Modal -->
+    <div id="popup" class="popup">
+      <div class="popup-content">
+        <span id="closeBtn">&times;</span>
+        <div id="popupText"></div>
+      </div>
+    </div>
+
+    <!-- Reviews Section -->
+    <section class="reviews">
+      <h2>Leave a Review</h2>
+      <form id="reviewForm">
+        <input type="text" placeholder="Your name" required>
+        <textarea placeholder="Your comment..." required></textarea>
+        <button type="submit">Submit Review</button>
+      </form>
+      <div id="reviewsList"></div>
+    </section>
+
+    <!-- Message Section -->
+    <section class="message">
+      <h2>Send Me a Message</h2>
+      <form id="messageForm">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea placeholder="Your Message..." required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    // Handle popup clicks
+    const cards = document.querySelectorAll(".card");
+    const popup = document.getElementById("popup");
+    const popupText = document.getElementById("popupText");
+    const closeBtn = document.getElementById("closeBtn");
+
+    const content = {
+      home: "<h3>Home</h3><p>Hello! I'm Watson Khunga, a passionate front-end developer and creator of colorful ideas 🌟.</p>",
+      about: "<h3>About</h3><p>I’m an aspiring developer from Malawi with a deep love for tech, design, and innovation.</p>",
+      skills: "<h3>Skills</h3><ul><li>HTML / CSS</li><li>JavaScript</li><li>Creative Design</li><li>Problem Solving</li></ul>",
+      socials: "<h3>Socials</h3><p>📧 Email: yourname@gmail.com<br>📱 Phone: +265 XXX XXX XXX<br>🌐 Instagram, Facebook, GitHub</p>",
+      cv: "<h3>CV</h3><p>Download my resume <a href='#'>here</a>.</p>",
+      contact: "<h3>Contact</h3><p>Feel free to reach out for collaborations or freelance work.</p>"
+    };
+
+    cards.forEach(card => {
+      card.addEventListener("click", () => {
+        const type = card.getAttribute("data-content");
+        popupText.innerHTML = content[type];
+        popup.classList.add("active");
+      });
+    });
+
+    closeBtn.addEventListener("click", () => popup.classList.remove("active"));
+    window.addEventListener("click", e => {
+      if (e.target === popup) popup.classList.remove("active");
+    });
+
+    // Save Reviews
+    const reviewForm = document.getElementById("reviewForm");
+    const reviewsList = document.getElementById("reviewsList");
+
+    reviewForm.addEventListener("submit", e => {
+      e.preventDefault();
+      const name = reviewForm.querySelector("input").value;
+      const comment = reviewForm.querySelector("textarea").value;
+      const div = document.createElement("div");
+      div.classList.add("review");
+      div.innerHTML = `<strong>${name}</strong><p>${comment}</p>`;
+      reviewsList.appendChild(div);
+      reviewForm.reset();
+    });
+
+    // Save Messages
+    const messageForm = document.getElementById("messageForm");
+    messageForm.addEventListener("submit", e => {
+      e.preventDefault();
+      alert("✅ Your message has been sent!");
+      messageForm.reset();
+    });
+  </script>
+</body>
+</html>
